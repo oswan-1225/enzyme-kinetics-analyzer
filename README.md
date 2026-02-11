@@ -1,1 +1,2 @@
 # enzyme-kinetics-analyzer
+Goal is to automate fitting and visualization of Michaelis–Menten assay data from raw CSV input. Specifically from Substrate versus Velocity data with the ultimate goal of extracting Vmax and Km values.
