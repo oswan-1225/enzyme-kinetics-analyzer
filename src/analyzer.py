@@ -1,9 +1,13 @@
 from utils import loaddata, preprocess_data, plotdata, save_figure
-with open('data/testdata.csv') as data:
-    substrate, velocity = loaddata(data)
-    if preprocess_data(substrate, velocity):
-        print("Data preprocessing successful.")
-    else:
-        print("Data preprocessing failed. Please check the input data.")
-plotdata(substrate, velocity,)
-save_figure('results/plot.png')
+import os
+directory = 'data/'
+for files in os.listdir(directory):
+    if files.endswith('csv'):
+         with open(os.path.join(directory, files)) as data:
+            substrate, velocity = loaddata(data)
+            if preprocess_data(substrate, velocity):
+                print("Data preprocessing successful.")
+                plotdata(substrate, velocity,)
+                save_figure(f'results/{files.replace(".csv", ".png")}')
+            else:
+                print("Data preprocessing failed. Please check the input data.")
