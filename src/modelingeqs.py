@@ -1,5 +1,5 @@
 def MMfit(substrate, velocity):
-    '''Fit the Michaelis-Menten equation to the substrate and velocity data.'''
+    '''Fits the Michaelis-Menten equation to the substrate and velocity data.'''
     from scipy.optimize import curve_fit
     def MM(substrate, Vmax, Km):
         return (Vmax * substrate) / (Km + substrate)

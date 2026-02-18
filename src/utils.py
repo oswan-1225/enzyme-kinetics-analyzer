@@ -16,18 +16,24 @@ def preprocess_data(substrate, velocity: pd.Series):
 def plotdata(substrate, velocity):
     '''Plot substrate vs. velocity data using matplotlib.'''
     import matplotlib.pyplot as plt
-    plt.scatter(substrate, velocity, color = 'gold')
-    plt.xlabel('[S]')
-    plt.ylabel('Velocity')
-    plt.title('Substrate vs. Velocity')
-    yfit = MMfit(substrate, velocity)
+    # Sets the axis constraints
+    figure, ax = plt.subplots()
+    ax.scatter(substrate, velocity, color="gold")
+    ax.set_xlabel('[S]')
+    ax.set_ylabel('Velocity')
+    ax.set_title('Substrate vs. Velocity')
+    # plots the eq using the MMfit function to fit the data and plot the resulting curve
+    vmax, km = MMfit(substrate, velocity)
     xfit = range(int(min(substrate)), int(max(substrate)) + 1)
-    '''Plot the data, yfit[0] is Vmax and yfit[1] is Km'''
-    label = f'MM Fit: Vmax={yfit[0]:.2f}, Km={yfit[1]:.2f}'
-    plt.plot(xfit, [yfit[0] * s / (yfit[1] + s) for s in xfit], color='pink', label=label)
-    plt.legend()
+    yfit = [vmax * s / (km + s) for s in xfit]
+    ax.plot(xfit, yfit, color='pink', label=f'MM Fit: Vmax={vmax:.2f}, Km={km:.2f}')
+    return figure
 
-def save_figure(filename):
+def save_figure(filename, fig=None):
     '''Save the current figure to a file.'''
     import matplotlib.pyplot as plt
-    plt.savefig(filename)
+    if fig is None:
+        fig = plt.gcf()
+    fig.tight_layout()
+    fig.savefig(filename, dpi=200, bbox_inches='tight')
+    plt.close(fig)
