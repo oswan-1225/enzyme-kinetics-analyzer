@@ -57,3 +57,7 @@ def save_figure(filename, fig=None):
     fig.tight_layout()
     fig.savefig(filename, dpi=200, bbox_inches='tight')
     plt.close(fig)
+
+def save_bulk_file(filename, data):
+    '''Saves the output data to a single csv'''
+    

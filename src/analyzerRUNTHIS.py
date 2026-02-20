@@ -1,4 +1,4 @@
-from utils import loaddata, preprocess_data, plotdata, save_figure
+from utils import loaddata, preprocess_data, plotdata, save_figure, save_bulk_file
 import os
 
 directory = 'data/'
